@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+// import ownCombineReducers from '../../redux-from-scratch/combine-reducers';
 import todos from './todos';
 import visibilityFilter from './visibility-filter';
 
@@ -12,6 +13,13 @@ import visibilityFilter from './visibility-filter';
 //     }
 // }
 
+/* Own combineReducers from scratch */
+// export default ownCombineReducers({
+//     todos,
+//     visibilityFilter,
+// })
+
+/* Redux combineReducers */
 export default combineReducers({
     todos,
     visibilityFilter,
