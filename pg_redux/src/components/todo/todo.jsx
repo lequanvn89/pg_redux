@@ -30,13 +30,18 @@ class Todo extends React.Component {
         });
     }
 
+    onAddTodo() {
+        this.props.onAddTodo(this.state.newTodoText);
+        this.setState({ newTodoText: '' });
+    }
+
     render() {
         return(
             <div>
                 <h2>Todo</h2>
                 <div>
                     <input type='text' value={this.state.newTodoText} onChange={this.onNewTodoTextChange.bind(this)} />
-                    <button onClick={() => this.props.onAddTodo(this.state.newTodoText)}>Add</button>
+                    <button onClick={this.onAddTodo.bind(this)}>Add</button>
                 </div>
                 {this.props.todos.map((todo) => this.renderTodoItem(todo))}
             </div>

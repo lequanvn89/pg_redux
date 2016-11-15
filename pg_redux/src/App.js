@@ -7,7 +7,7 @@ import './App.css';
 // import CounterContainer from './components/counter/counter-container';
 // import counterReducer from './components/counter/counter-reducer';
 import TodoContainer from './components/todo/todo-container';
-import todoReducer from './components/todo/todo-reducer';
+import todosReducer from './components/todo/reducers/todos-reducer';
 
 class App extends Component {
     constructor(props) {
@@ -15,7 +15,7 @@ class App extends Component {
 
         /* Redux store */
         // const store = createStore(counterReducer);
-        const store = createStore(todoReducer);
+        const store = createStore(todosReducer);
 
         /* Own store from scratch */
         // const store = createOwnStore(counterReducer);
