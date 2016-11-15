@@ -16,7 +16,7 @@ class CounterContainer extends React.Component {
     render() {
         return (
             <Counter
-                count={this.props.count}
+                count={this.props.store.getState()}
                 onIncrement={this.onIncrement.bind(this)}
                 onDecrement={this.onDecrement.bind(this)}
             />
@@ -25,7 +25,6 @@ class CounterContainer extends React.Component {
 }
 
 CounterContainer.propTypes = {
-    count: React.PropTypes.number,
     store: React.PropTypes.object
 };
 

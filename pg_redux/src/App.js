@@ -5,6 +5,8 @@ import './App.css';
 
 import CounterContainer from './components/counter/counter-container'
 import counterReducer from './components/counter/counter-reducer';
+import TodoContainer from './components/todo/todo-container';
+import todoReducer from './components/todo/todo-reducer';
 
 
 /* Own store from scratch */
@@ -41,8 +43,6 @@ class App extends Component {
         /* Own store from scratch */
         // const store = createOwnStore(counterReducer);
 
-        this.state = { count: store.getState() };
-
         const render = () => {
             this.setState({ count: store.getState() });
             console.log('-=- NEW STATE -=-');
@@ -60,7 +60,9 @@ class App extends Component {
                     <img src={logo} className="App-logo" alt="logo"/>
                 </div>
                 <CounterContainer
-                    count={this.state.count}
+                    store={this.store}
+                />
+                <TodoContainer
                     store={this.store}
                 />
             </div>

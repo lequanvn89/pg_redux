@@ -1,8 +1,11 @@
+import counterActions from './counter-actions';
+
+
 export default (state = 0, action) => {
     switch (action.type) {
-        case 'INCREMENT':
+        case counterActions.INCREMENT:
             return state + 1;
-        case 'DECREMENT':
+        case counterActions.DECREMENT:
             return state - 1;
         default:
             return state;
