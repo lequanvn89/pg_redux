@@ -1,5 +1,5 @@
-import todoActions from '../todo-actions';
-import todoReducer from './todo-reducer';
+import { todo as todoActions } from '../actions';
+import todoReducer from './todo';
 
 
 export default (state = [], action) => {

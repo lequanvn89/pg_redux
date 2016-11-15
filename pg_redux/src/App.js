@@ -7,7 +7,7 @@ import './App.css';
 // import CounterContainer from './components/counter/counter-container';
 // import counterReducer from './components/counter/counter-reducer';
 import TodoContainer from './components/todo/todo-container';
-import todosReducer from './components/todo/reducers/todos-reducer';
+import todosReducer from './components/todo/reducers/main';
 
 class App extends Component {
     constructor(props) {

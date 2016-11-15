@@ -1,4 +1,4 @@
-import todoActions from '../todo-actions';
+import { todo as todoActions } from '../actions';
 
 
 export default (state, action) => {
