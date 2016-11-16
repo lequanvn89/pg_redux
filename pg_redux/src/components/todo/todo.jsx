@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { visibilityFilters } from './const';
-
 
 class Todo extends React.Component {
     constructor(props) {

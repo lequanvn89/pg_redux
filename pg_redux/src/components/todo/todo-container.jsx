@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Todo from './todo';
-import { todo as todoActions, visibility as visibilityActions } from './actions';
+import { toggleTodo, addTodo, setVisibilityFilter } from './action-creators';
 import { visibilityFilters } from './const';
+import Todo from './todo';
 
 
 function mapStateToProps(state) {
@@ -15,30 +15,16 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         onToggleTodo: (id) => {
-            dispatch({
-                type: todoActions.TOGGLE_TODO,
-                id: id,
-            });
+            dispatch(toggleTodo(id));
         },
         onAddTodo(text) {
-            dispatch({
-                type: todoActions.ADD_TODO,
-                id: generateId(),
-                text,
-                completed: false,
-            });
+            dispatch(addTodo(text));
         },
         onShowAll() {
-            dispatch({
-                type: visibilityActions.SET_FILTER,
-                filter: visibilityFilters.SHOW_ALL,
-            });
+            dispatch(setVisibilityFilter(visibilityFilters.SHOW_ALL));
         },
         onShowCompleted() {
-            dispatch({
-                type: visibilityActions.SET_FILTER,
-                filter: visibilityFilters.SHOW_COMPLETED,
-            });
+            dispatch(setVisibilityFilter(visibilityFilters.SHOW_COMPLETED));
         },
     };
 }
@@ -49,10 +35,6 @@ function getVisibleTodos(todos, filter) {
     }
 
     return todos;
-}
-
-function generateId() {
-    return parseInt(Math.random() * 1000000, 10);
 }
 
 class TodoContainer extends React.Component {

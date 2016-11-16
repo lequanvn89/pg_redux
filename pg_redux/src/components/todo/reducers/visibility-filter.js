@@ -1,5 +1,4 @@
-import { visibility as visibilityActions } from '../actions';
-import { visibilityFilters } from '../const';
+import { visibilityActions, visibilityFilters } from '../const';
 
 
 export default (state = visibilityFilters.SHOW_ALL, action) => {
