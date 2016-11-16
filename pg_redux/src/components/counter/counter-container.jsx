@@ -6,17 +6,17 @@ import counterActions from './counter-actions';
 
 class CounterContainer extends React.Component {
     onIncrement() {
-        this.props.store.dispatch({ type: counterActions.INCREMENT });
+        this.context.store.dispatch({ type: counterActions.INCREMENT });
     }
 
     onDecrement() {
-        this.props.store.dispatch({ type: counterActions.DECREMENT });
+        this.context.store.dispatch({ type: counterActions.DECREMENT });
     }
 
     render() {
         return (
             <Counter
-                count={this.props.store.getState()}
+                count={this.context.store.getState()}
                 onIncrement={this.onIncrement.bind(this)}
                 onDecrement={this.onDecrement.bind(this)}
             />
@@ -26,6 +26,10 @@ class CounterContainer extends React.Component {
 
 CounterContainer.propTypes = {
     store: React.PropTypes.object
+};
+
+CounterContainer.contextTypes = {
+    store: React.PropTypes.object,
 };
 
 export default CounterContainer;

@@ -30,21 +30,27 @@ class App extends Component {
         this.store = store;
     }
 
+    getChildContext() {
+        return {
+            store: this.store,
+        };
+    }
+
     render() {
         return (
             <div className="App">
                 <div className="App-header">
                     <img src={logo} className="App-logo" alt="logo"/>
                 </div>
-                {/*<CounterContainer*/}
-                    {/*store={this.store}*/}
-                {/*/>*/}
-                <TodoContainer
-                    store={this.store}
-                />
+                {/*<CounterContainer />*/}
+                <TodoContainer />
             </div>
         );
     }
 }
+
+App.childContextTypes = {
+    store: React.PropTypes.object,
+};
 
 export default App;
