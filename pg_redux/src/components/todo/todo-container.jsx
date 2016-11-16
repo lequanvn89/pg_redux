@@ -1,63 +1,96 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Todo from './todo';
 import { todo as todoActions, visibility as visibilityActions } from './actions';
 import { visibilityFilters } from './const';
 
 
+function mapStateToProps(state) {
+    return {
+        todos: getVisibleTodos(state.todos, state.visibilityFilter),
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        onToggleTodo: (id) => {
+            dispatch({
+                type: todoActions.TOGGLE_TODO,
+                id: id,
+            });
+        },
+        onAddTodo(text) {
+            dispatch({
+                type: todoActions.ADD_TODO,
+                id: generateId(),
+                text,
+                completed: false,
+            });
+        },
+        onShowAll() {
+            dispatch({
+                type: visibilityActions.SET_FILTER,
+                filter: visibilityFilters.SHOW_ALL,
+            });
+        },
+        onShowCompleted() {
+            dispatch({
+                type: visibilityActions.SET_FILTER,
+                filter: visibilityFilters.SHOW_COMPLETED,
+            });
+        },
+    };
+}
+
+function getVisibleTodos(todos, filter) {
+    if (filter === visibilityFilters.SHOW_COMPLETED) {
+        todos = todos.filter((todo) => todo.completed === true);
+    }
+
+    return todos;
+}
+
+function generateId() {
+    return parseInt(Math.random() * 1000000, 10);
+}
+
 class TodoContainer extends React.Component {
-    onAddTodo(text) {
-        this.context.store.dispatch({
-            type: todoActions.ADD_TODO,
-            id: this.context.store.getState().todos.length + 1,
-            text,
-            completed: false,
-        });
+    componentDidMount() {
+        this.unsubscribe = this.context.store.subscribe(() => this.forceUpdate());
     }
 
-    onToggleTodo(id) {
-        this.context.store.dispatch({
-            type: todoActions.TOGGLE_TODO,
-            id: id,
-        });
-    }
-
-    onShowAll() {
-        this.context.store.dispatch({
-            type: visibilityActions.SET_FILTER,
-            filter: visibilityFilters.SHOW_ALL,
-        });
-    }
-
-    onShowCompleted() {
-        this.context.store.dispatch({
-            type: visibilityActions.SET_FILTER,
-            filter: visibilityFilters.SHOW_COMPLETED,
-        });
+    componentWillUnmount() {
+        this.unsubscribe();
     }
 
     render() {
-        const storeState = this.context.store.getState();
-
         return (
             <Todo
-                todos={storeState.todos}
-                visibilityFilter={storeState.visibilityFilter}
-                onAddTodo={this.onAddTodo.bind(this)}
-                onToggleTodo={this.onToggleTodo.bind(this)}
-                onShowAll={this.onShowAll.bind(this)}
-                onShowCompleted={this.onShowCompleted.bind(this)}
+                todos={this.props.todos}
+                onAddTodo={this.props.onAddTodo}
+                onToggleTodo={this.props.onToggleTodo}
+                onShowAll={this.props.onShowAll}
+                onShowCompleted={this.props.onShowCompleted}
             />
         );
     }
 }
 
 TodoContainer.propTypes = {
-    store: React.PropTypes.object
+    todos: React.PropTypes.arrayOf(React.PropTypes.shape({
+        id: React.PropTypes.number,
+        text: React.PropTypes.string,
+        completed: React.PropTypes.bool,
+    })),
+    onAddTodo: React.PropTypes.func,
+    onToggleTodo: React.PropTypes.func,
+    onShowAll: React.PropTypes.func,
+    onShowCompleted: React.PropTypes.func,
 };
 
 TodoContainer.contextTypes = {
     store: React.PropTypes.object,
 };
 
-export default TodoContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer);

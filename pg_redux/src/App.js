@@ -14,21 +14,12 @@ class App extends Component {
     constructor(props) {
         super(props);
 
+        /* Own store from scratch */
+        // this.store = createOwnStore(counterReducer);
+
         /* Redux store */
         // const store = createStore(counterReducer);
-        const store = createStore(todosReducer);
-
-        /* Own store from scratch */
-        // const store = createOwnStore(counterReducer);
-
-        const render = () => {
-            this.setState({ count: store.getState() });
-            console.log('-=- NEW STATE -=-');
-            console.log(store.getState());
-        };
-        store.subscribe(render);
-
-        this.store = store;
+        this.store = createStore(todosReducer);
     }
 
     render() {

@@ -26,18 +26,6 @@ class Todo extends React.Component {
         );
     }
 
-    renderTodoItems() {
-        let todos = [];
-
-        if (this.props.visibilityFilter === visibilityFilters.SHOW_ALL) {
-            todos = this.props.todos;
-        } else if (this.props.visibilityFilter === visibilityFilters.SHOW_COMPLETED) {
-            todos = this.props.todos.filter((todo) => todo.completed === true);
-        }
-
-        return todos.map((todo) => this.renderTodoItem(todo));
-    }
-
     onNewTodoTextChange(ev) {
         this.setState({
             newTodoText: ev.target.value,
@@ -59,7 +47,7 @@ class Todo extends React.Component {
                     <button onClick={this.props.onShowAll}>Show all</button>
                     <button onClick={this.props.onShowCompleted}>Show completed</button>
                 </div>
-                {this.renderTodoItems()}
+                {this.props.todos.map((todo) => this.renderTodoItem(todo))}
             </div>
         );
     }
@@ -71,7 +59,6 @@ Todo.propTypes = {
         text: React.PropTypes.string,
         completed: React.PropTypes.bool,
     })),
-    visibilityFilter: React.PropTypes.string,
     onAddTodo: React.PropTypes.func,
     onToggleTodo: React.PropTypes.func,
     onShowAll: React.PropTypes.func,

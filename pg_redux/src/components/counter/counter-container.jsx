@@ -5,6 +5,14 @@ import counterActions from './counter-actions';
 
 
 class CounterContainer extends React.Component {
+    componentDidMount() {
+        this.unsubscribe = this.context.store.subscribe(() => this.forceUpdate());
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
     onIncrement() {
         this.context.store.dispatch({ type: counterActions.INCREMENT });
     }
