@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import logo from './logo.svg';
 import './App.css';
@@ -30,27 +31,19 @@ class App extends Component {
         this.store = store;
     }
 
-    getChildContext() {
-        return {
-            store: this.store,
-        };
-    }
-
     render() {
         return (
             <div className="App">
                 <div className="App-header">
                     <img src={logo} className="App-logo" alt="logo"/>
                 </div>
-                {/*<CounterContainer />*/}
-                <TodoContainer />
+                <Provider store={this.store}>
+                    {/*<CounterContainer />*/}
+                    <TodoContainer />
+                </Provider>
             </div>
         );
     }
 }
-
-App.childContextTypes = {
-    store: React.PropTypes.object,
-};
 
 export default App;
